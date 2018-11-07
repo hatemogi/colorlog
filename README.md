@@ -16,9 +16,13 @@ colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/�
 
 ### before 
 
+    tail -f current/logs/app.log
+
 ![](doc/before.png)
 
 ### after
+
+    tail -f current/logs/app.log | colorlog
 
 ![](doc/after.png)
 
