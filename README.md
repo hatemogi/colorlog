@@ -8,8 +8,12 @@
 
 ## 설치 방법
 
-colorlog는 osx와 linux용 바이너리로 빌드해 두었으며, [릴리즈 페이지](https://github.nhnent.com/daehyun-kim/colorlog/releases)에서 최신 바이너리를 다운로드해서 쓰시면 됩니다. static 바이너리라 별도의 디펜던시가 필요없습니다.
+colorlog는 osx와 linux용 바이너리로 빌드해 두었으며, [릴리즈 페이지](https://github.com/hatemogi/colorlog/releases)에서 최신 바이너리를 다운로드해서 쓰시면 됩니다. static 바이너리라 별도의 디펜던시가 필요없습니다.
 
+    curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.1/colorlog
+    chmod +x colorlog
+
+    
 ## 사용방법
 
 colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/숫자/JSON 등`을 각각 다른 색상으로 출력합니다. 
