@@ -10,29 +10,29 @@
 
 colorlog는 osx와 linux용 바이너리로 빌드해 두었으며, [릴리즈 페이지](https://github.com/hatemogi/colorlog/releases)에서 최신 바이너리를 다운로드해서 쓰시면 됩니다. static 바이너리라 별도의 디펜던시가 필요없습니다.
 
-리눅스 서버에서는 아래커맨드로 설치하셔서 $PATH가 걸려 있는 `~=.bin/` 디렉토리 등에 옮겨주세요.
+리눅스 서버에서는 아래 커맨드로 설치하셔서 $PATH가 걸려 있는 `~/bin` 디렉토리 등에 옮겨주세요.
 
-    > curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.1/colorlog
-    > chmod +x colorlog
+    $ curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.1/colorlog
+    $ chmod +x colorlog
 
 
 ## 사용방법
 
 colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/숫자/JSON 등`을 각각 다른 색상으로 출력합니다. 
 
-    tail -f [YOUR_LOG_FILE] | colorlog
+    $ tail -f [YOUR_LOG_FILE] | grep [TARGET_WORD] | colorlog
 
 ## 사용 전과 후
 
 ### before 
 
-    tail -f current/logs/app.log
+    $ tail -f current/logs/app.log
 
 ![](doc/before.png)
 
 ### after
 
-    tail -f current/logs/app.log | colorlog
+    $ tail -f current/logs/app.log | colorlog
 
 ![](doc/after.png)
 
