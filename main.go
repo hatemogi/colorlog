@@ -57,14 +57,17 @@ func 디버그표시(타입 string, 토큰 string) string {
 	return fmt.Sprintf("(%s %s)", 타입, 토큰)
 }
 
-func main() {
+func 종료시그널처리() {
 	c := make(chan os.Signal, 2)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
 		os.Exit(0)
 	}()
+}
 
+func main() {
+	종료시그널처리()
 	scanner := bufio.NewScanner(os.Stdin)
 	var 표시 표시함수 = 기본표시
 	if len(os.Args) > 1 && os.Args[1] == "-d" {
