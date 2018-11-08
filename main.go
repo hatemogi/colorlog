@@ -16,6 +16,7 @@ func 매처(expr string) *regexp.Regexp {
 }
 
 var 숫자매처 = 매처("^[0-9]+$")
+var 실수매처 = 매처("^[0-9]*\\.[0-9]+")
 var IP매처 = 매처("^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]")
 var 날짜매처 = 매처("^[0-9]{4}-[0-9]{2}-[0-9]{2}")
 var 시간매처 = 매처("^[0-9]+(µ|m)s$")
@@ -39,6 +40,8 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 			return 색칠(표시("숫자", w), 2)
 		case IP매처.Match(w):
 			return 색칠(표시("IP", w), 14)
+		case 실수매처.Match(w):
+			return 색칠(표시("실수", w), 9)
 		case 날짜매처.Match(w):
 			return 색칠(표시("시간", w), 6)
 		case 시간매처.Match(w):
