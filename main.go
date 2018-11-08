@@ -31,25 +31,25 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
 		switch {
 		case 매치("^[0-9]+$", w):
-			return 색칠(표시("숫자", w), 87)
+			return 색칠(표시("숫자", w), 2)
 		case 매치("^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]", w):
-			return 색칠(표시("IP", w), 39)
+			return 색칠(표시("IP", w), 14)
 		case 매치("^[0-9]{4}-[0-9]{2}-[0-9]{2}", w):
-			return 색칠(표시("시간", w), 39)
+			return 색칠(표시("시간", w), 6)
 		case 매치("^[0-9]+(µ|m)s$", w):
-			return 색칠(표시("시간", w), 39)
+			return 색칠(표시("시간", w), 6)
 		}
 	case '"', '\'':
-		return 색칠(표시("인용", w), 214)
+		return 색칠(표시("인용", w), 10)
 	case '{', '[', '(':
-		return 색칠(표시("JSON", w), 214)
+		return 색칠(표시("JSON", w), 11)
 	case 'D', 'I', 'E', 'W':
 		switch {
 		case bytes.Equal(w, []byte("INFO")),
 			bytes.Equal(w, []byte("DEBUG")),
 			bytes.Equal(w, []byte("ERROR")),
 			bytes.Equal(w, []byte("WARN")):
-			return 색칠(표시("레벨", w), 9)
+			return 색칠(표시("레벨", w), 15)
 		}
 	}
 	return 표시("그외", w)
