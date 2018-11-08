@@ -10,10 +10,15 @@ import (
 	"syscall"
 )
 
-func 매치(re string, 단어 []byte) bool {
-	m, _ := regexp.Match(re, 단어)
-	return m
+func 매처(expr string) *regexp.Regexp {
+	re, _ := regexp.Compile(expr)
+	return re
 }
+
+var 숫자매처 = 매처("^[0-9]+$")
+var IP매처 = 매처("^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]")
+var 날짜매처 = 매처("^[0-9]{4}-[0-9]{2}-[0-9]{2}")
+var 시간매처 = 매처("^[0-9]+(µ|m)s$")
 
 var 도입 = []byte{0x1b, 91, 51, 56, 58, 53, 58}
 var 리셋 = []byte{0x1b, 91, 48, 109}
@@ -30,13 +35,13 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 		return 색칠(표시("공백", w), 0)
 	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
 		switch {
-		case 매치("^[0-9]+$", w):
+		case 숫자매처.Match(w):
 			return 색칠(표시("숫자", w), 2)
-		case 매치("^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]", w):
+		case IP매처.Match(w):
 			return 색칠(표시("IP", w), 14)
-		case 매치("^[0-9]{4}-[0-9]{2}-[0-9]{2}", w):
+		case 날짜매처.Match(w):
 			return 색칠(표시("시간", w), 6)
-		case 매치("^[0-9]+(µ|m)s$", w):
+		case 시간매처.Match(w):
 			return 색칠(표시("시간", w), 6)
 		}
 	case '"', '\'':
