@@ -9,7 +9,7 @@ darwin:
 	GOOS=darwin GOARCH=amd64 go build -o colorlog.darwin
 
 prepare:
-	go get -u github.com/alecthomas/participle
+
 
 clean:
 	go clean
