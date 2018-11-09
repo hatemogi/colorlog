@@ -20,7 +20,8 @@ var 실수매처 = 매처("^[0-9]*\\.[0-9]+")
 var IP매처 = 매처("^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]")
 var 날짜매처 = 매처("^[0-9]{4}-[0-9]{2}-[0-9]{2}")
 var 시간매처 = 매처("^[0-9]+(µ|m)s$")
-
+var 헥사매처 = 매처("^(?i:[0-9a-f]{4,})$")
+var UUID매처 = 매처("^(?i:[0-9a-f]{8}-[0-9a-f]{4})")
 var 도입 = []byte{0x1b, 91, 51, 56, 58, 53, 58}
 var 리셋 = []byte{0x1b, 91, 48, 109}
 
@@ -31,10 +32,11 @@ func 색칠(w []byte, color byte) []byte {
 type 표시함수 func(타입 string, 단어 []byte) []byte
 
 func 단어꾸밈(w []byte, 표시 표시함수) []byte {
-	switch w[0] {
-	case ' ':
+	글자 := w[0]
+	switch {
+	case 글자 == ' ':
 		return 색칠(표시("공백", w), 0)
-	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+	case (글자 >= '0' && 글자 <= '9'), (글자 >= 'a' && 글자 <= 'e'), (글자 >= 'A' && 글자 <= 'E'):
 		switch {
 		case 숫자매처.Match(w):
 			return 색칠(표시("숫자", w), 2)
@@ -46,17 +48,20 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 			return 색칠(표시("시간", w), 6)
 		case 시간매처.Match(w):
 			return 색칠(표시("시간", w), 6)
+		case 헥사매처.Match(w):
+			return 색칠(표시("헥사", w), 12)
+		case UUID매처.Match(w):
+			return 색칠(표시("UUID", w), 13)
 		}
-	case '"', '\'':
+		if bytes.Equal(w, []byte("DEBUG")) || bytes.Equal(w, []byte("ERROR")) {
+			return 색칠(표시("레벨", w), 15)
+		}
+	case 글자 == '"', 글자 == '\'':
 		return 색칠(표시("인용", w), 10)
-	case '{', '[', '(':
+	case 글자 == '{', 글자 == '[', 글자 == '(':
 		return 색칠(표시("JSON", w), 11)
-	case 'D', 'I', 'E', 'W':
-		switch {
-		case bytes.Equal(w, []byte("INFO")),
-			bytes.Equal(w, []byte("DEBUG")),
-			bytes.Equal(w, []byte("ERROR")),
-			bytes.Equal(w, []byte("WARN")):
+	case 글자 == 'I', 글자 == 'W':
+		if bytes.Equal(w, []byte("INFO")) || bytes.Equal(w, []byte("WARN")) {
 			return 색칠(표시("레벨", w), 15)
 		}
 	}
