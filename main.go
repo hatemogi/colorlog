@@ -39,9 +39,9 @@ func main() {
 		fmt.Printf("colorlog %v\n", "0.0.3")
 		os.Exit(0)
 	}
-	if colors := os.Getenv("CL_COLORS"); len(colors) == 32 {
-		table, e := hex.DecodeString(colors)
-		if e == nil {
+	if colors := os.Getenv("CL_COLORS"); len(colors) > 0 {
+		table, err := hex.DecodeString(colors)
+		if err == nil && len(table) == 16 {
 			colorlog.SetColors(table)
 		}
 	}

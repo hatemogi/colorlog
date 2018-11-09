@@ -25,8 +25,10 @@ var (
 	리셋 = []byte{0x1b, 91, 48, 109}
 )
 
+var 색상테이블 = []byte{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+
 func 색칠(w []byte, color byte) []byte {
-	return append(append(append(도입, fmt.Sprintf("%dm", color)...), w...), 리셋...)
+	return append(append(append(도입, fmt.Sprintf("%dm", 색상테이블[color])...), w...), 리셋...)
 }
 
 type 표시함수 func(타입 string, 단어 []byte) []byte
@@ -151,7 +153,7 @@ func 디버그표시(타입 string, 토큰 []byte) []byte {
 
 // SetColors 종류별 출력할 색상 테이블 설정
 func SetColors(table []byte) {
-
+	색상테이블 = table
 }
 
 // SetDebug 디버그 출력설정
