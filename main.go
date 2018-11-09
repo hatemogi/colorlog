@@ -46,7 +46,7 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 		case 실수매처.Match(w):
 			return 색칠(표시("실수", w), 9)
 		case 날짜매처.Match(w), 시간매처.Match(w), 기간매처.Match(w):
-			return 색칠(표시("시간", w), 6)
+			return 색칠(표시("시간", w), 4)
 		case 헥사매처.Match(w):
 			return 색칠(표시("헥사", w), 12)
 		case UUID매처.Match(w):
@@ -56,9 +56,11 @@ func 단어꾸밈(w []byte, 표시 표시함수) []byte {
 			return 색칠(표시("레벨", w), 15)
 		}
 	case 글자 == '"', 글자 == '\'':
-		return 색칠(표시("인용", w), 10)
-	case 글자 == '{', 글자 == '[', 글자 == '(':
+		return 색칠(표시("인용", w), 6)
+	case 글자 == '{', 글자 == '[':
 		return 색칠(표시("JSON", w), 11)
+	case 글자 == '(':
+		return 색칠(표시("괄호", w), 5)
 	case 글자 == 'I', 글자 == 'W':
 		if bytes.Equal(w, []byte("INFO")) || bytes.Equal(w, []byte("WARN")) {
 			return 색칠(표시("레벨", w), 15)
