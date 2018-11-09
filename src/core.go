@@ -43,33 +43,41 @@ func 단어꾸밈(w []byte) []byte {
 	case (글자 >= '0' && 글자 <= '9'), (글자 >= 'a' && 글자 <= 'e'), (글자 >= 'A' && 글자 <= 'E'):
 		switch {
 		case 숫자매처.Match(w):
-			return 색칠(표시("숫자", w), 2)
+			return 색칠(표시("숫자", w), 1)
 		case IP매처.Match(w):
-			return 색칠(표시("IP", w), 14)
+			return 색칠(표시("IP", w), 2)
 		case 실수매처.Match(w):
-			return 색칠(표시("실수", w), 9)
+			return 색칠(표시("실수", w), 3)
 		case 날짜매처.Match(w), 시간매처.Match(w), 기간매처.Match(w):
 			return 색칠(표시("시간", w), 4)
 		case 헥사매처.Match(w):
-			return 색칠(표시("헥사", w), 12)
+			return 색칠(표시("헥사", w), 5)
 		case UUID매처.Match(w):
-			return 색칠(표시("UUID", w), 13)
+			return 색칠(표시("UUID", w), 6)
+		case bytes.Equal(w, []byte("DEBUG")):
+			return 색칠(표시("레벨", w), 13)
+		case bytes.Equal(w, []byte("ERROR")):
+			return 색칠(표시("레벨", w), 14)
 		}
-		if bytes.Equal(w, []byte("DEBUG")) || bytes.Equal(w, []byte("ERROR")) {
-			return 색칠(표시("레벨", w), 15)
-		}
-	case 글자 == '"', 글자 == '\'':
-		return 색칠(표시("인용", w), 6)
-	case 글자 == '{', 글자 == '[':
-		return 색칠(표시("JSON", w), 11)
+	case 글자 == '"':
+		return 색칠(표시("인용", w), 7)
+	case 글자 == '\'':
+		return 색칠(표시("인용", w), 8)
+	case 글자 == '{':
+		return 색칠(표시("{}", w), 9)
+	case 글자 == '[':
+		return 색칠(표시("[]", w), 10)
 	case 글자 == '(':
-		return 색칠(표시("괄호", w), 5)
+		return 색칠(표시("괄호", w), 11)
 	case 글자 == 'I', 글자 == 'W':
-		if bytes.Equal(w, []byte("INFO")) || bytes.Equal(w, []byte("WARN")) {
-			return 색칠(표시("레벨", w), 15)
+		switch {
+		case bytes.Equal(w, []byte("INFO")):
+			return 색칠(표시("레벨", w), 13)
+		case bytes.Equal(w, []byte("WARN")):
+			return 색칠(표시("레벨", w), 14)
 		}
 	}
-	return 표시("그외", w)
+	return 색칠(표시("그외", w), 15)
 }
 
 var 닫힘문자 = map[byte]byte{'[': ']', '{': '}', '(': ')'}

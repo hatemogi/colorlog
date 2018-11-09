@@ -24,12 +24,13 @@ var (
 	verbose bool
 	version bool
 	debug   bool
-	colors  string
+	theme   string
 )
 
 func init() {
 	flag.BoolVar(&version, "v", false, "Show version and exit")
 	flag.BoolVar(&debug, "d", false, "Turn on debug mode")
+	flag.StringVar(&theme, "t", "", "set color theme")
 	flag.Parse()
 	종료시그널처리()
 }
@@ -39,12 +40,16 @@ func main() {
 		fmt.Printf("colorlog %v\n", "0.0.3")
 		os.Exit(0)
 	}
-	if colors := os.Getenv("CL_COLORS"); len(colors) > 0 {
+
+	if len(theme) > 0 {
+		colorlog.SetTheme(theme)
+	} else if colors := os.Getenv("COLORLOG_COLORS"); len(colors) > 0 {
 		table, err := hex.DecodeString(colors)
 		if err == nil && len(table) == 16 {
 			colorlog.SetColors(table)
 		}
 	}
+
 	colorlog.SetDebug(debug)
 	colorlog.Run(os.Stdin, os.Stdout)
 }
