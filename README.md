@@ -12,7 +12,7 @@ colorlog는 osx와 linux용 바이너리로 빌드해 두었으며, [릴리즈 �
 
 리눅스 서버에서는 아래 커맨드로 설치하셔서 $PATH가 걸려 있는 `~/bin` 디렉토리 등에 옮겨주세요.
 
-    $ curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.1/colorlog
+    $ curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.2/colorlog
     $ chmod +x colorlog
 
 
