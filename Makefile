@@ -3,14 +3,14 @@ all:
 	make linux
 
 linux:
-	GOOS=linux GOARCH=amd64 go build -o colorlog
+	GOOS=linux GOARCH=amd64 go build -o cl
 
 darwin:
-	GOOS=darwin GOARCH=amd64 go build -o colorlog.darwin
+	GOOS=darwin GOARCH=amd64 go build -o cl.osx
 
 prepare:
 
 
 clean:
 	go clean
-	rm -f colorlog.linux colorlog
+	rm -f cl.linux cl

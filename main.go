@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/hex"
 	"flag"
 	"fmt"
 	"os"
@@ -44,10 +43,7 @@ func main() {
 	if len(theme) > 0 {
 		colorlog.SetTheme(theme)
 	} else if colors := os.Getenv("COLORLOG_COLORS"); len(colors) > 0 {
-		table, err := hex.DecodeString(colors)
-		if err == nil && len(table) == 16 {
-			colorlog.SetColors(table)
-		}
+		colorlog.SetColors(colors)
 	}
 
 	colorlog.SetDebug(debug)
