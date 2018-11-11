@@ -40,6 +40,7 @@ func main() {
 		os.Exit(0)
 	}
 
+	colorlog.SetTheme("solarized")
 	if len(theme) > 0 {
 		colorlog.SetTheme(theme)
 	} else if colors := os.Getenv("COLORLOG_COLORS"); len(colors) > 0 {

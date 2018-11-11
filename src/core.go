@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -106,7 +107,7 @@ func 단어꾸밈(w []byte) []byte {
 			return 색칠(표시("레벨", w), WARN)
 		}
 	}
-	return 표시("그외", w)
+	return 색칠(표시("그외", w), 기본색)
 }
 
 var 닫힘문자 = map[byte]byte{'[': ']', '{': '}', '(': ')'}
@@ -196,11 +197,22 @@ func init() {
 }
 
 // SetColors 종류별 출력할 색상 테이블 설정
-func SetColors(table string) {
+func SetColors(table string) ([]byte, error) {
 	dec, e := hex.DecodeString(table)
 	if e == nil && len(dec) == 20 {
 		색상테이블 = dec
+		return dec, nil
 	}
+	return nil, e
+}
+
+// SetColorsBytes 종류별 출력할 색상 테이블 설정
+func SetColorsBytes(table []byte) ([]byte, error) {
+	if len(table) == 20 {
+		색상테이블 = table
+		return table, nil
+	}
+	return nil, errors.New("not a valid table")
 }
 
 // SetDebug 디버그 출력설정
