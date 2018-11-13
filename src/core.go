@@ -199,7 +199,7 @@ func init() {
 // SetColors 종류별 출력할 색상 테이블 설정
 func SetColors(table string) ([]byte, error) {
 	dec, e := hex.DecodeString(table)
-	if e == nil && len(dec) == 20 {
+	if e == nil && len(dec) == 19 {
 		색상테이블 = dec
 		return dec, nil
 	}
@@ -208,7 +208,7 @@ func SetColors(table string) ([]byte, error) {
 
 // SetColorsBytes 종류별 출력할 색상 테이블 설정
 func SetColorsBytes(table []byte) ([]byte, error) {
-	if len(table) == 20 {
+	if len(table) == 19 {
 		색상테이블 = table
 		return table, nil
 	}
@@ -227,6 +227,7 @@ func SetDebug(debug bool) {
 // Run in에서 읽어서 out에 색칠 처리.
 func Run(in io.Reader, out *os.File) {
 	scanner := bufio.NewScanner(in)
+	// out.WriteString(fmt.Sprintf("\x1b[48:5:%dm", 23))
 	for scanner.Scan() {
 		out.Write(줄처리(scanner.Bytes()))
 		out.WriteString("\r\n")
