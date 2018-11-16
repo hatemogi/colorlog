@@ -2,7 +2,7 @@
 
 단색 로그파일을 보느라 눈이 아팠던 분들을 위한 로그 파일 색칠러. 애플리케이션 로그나, 웹서버 접근 로그를 눈으로 보기 편하게 돕습니다.
 
-## 분류패턴
+## 분류 패턴
 
 > 정확도 보다는 (개발&실행) 속도 위주의 접근
 
@@ -21,13 +21,13 @@ colorlog는 osx와 linux용 바이너리로 빌드해 두었으며, [릴리즈 �
     $ curl -OL https://github.com/hatemogi/colorlog/releases/download/0.0.3/cl
     $ chmod +x cl
 
-## 사용방법
+## 사용법
 
-colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/숫자/JSON 등`을 각각 다른 색상으로 출력합니다. 
+colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/숫자/JSON 등`을 각각 다른 색상으로 보입니다.
 
     $ tail -f [YOUR_LOG_FILE] | grep --line-buffered [TARGET_WORD] | cl
 
-grep등의 프로그램은 파이프로 연결시 보통 4K정도의 버퍼링을 한다고 합니다. 그래서 grep을 중간에 끼울 때, `--line-buffered` 옵션을 주면 버퍼링 없이 바로 줄단위로 결과를 볼 수 있다는 점을 참고해주세요.
+grep등의 프로그램은 파이프로 연결시 보통 4K정도의 버퍼링을 한다고 합니다. 버퍼링을 줄이려면, grep을 중간에 끼울 때 `--line-buffered` 옵션을 주면 바로 줄단위로 결과를 볼 수 있다는 점을 참고해주세요.
 
 ## 사용 전과 후
 
