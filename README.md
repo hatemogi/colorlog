@@ -39,7 +39,7 @@ grep등의 프로그램은 파이프로 연결시 보통 4K정도의 버퍼링�
 
 ### after
 
-    $ tail -f current/logs/app.log | colorlog
+    $ tail -f current/logs/app.log | cl
 
 ![](doc/after.png)
 
