@@ -27,6 +27,8 @@ colorlog는 STDIN의 입력을 나름대로 분석해서 `시간/IP/문자열/�
 
     $ tail -f [YOUR_LOG_FILE] | grep --line-buffered [TARGET_WORD] | cl
 
+grep등의 프로그램은 파이프로 연결시 보통 4K정도의 버퍼링을 한다고 합니다. 그래서 grep을 중간에 끼울 때, `--line-buffered` 옵션을 주면 버퍼링 없이 바로 줄단위로 결과를 볼 수 있다는 점을 참고해주세요.
+
 ## 사용 전과 후
 
 ### before 
