@@ -233,3 +233,7 @@ func Run(in io.Reader, out *os.File) {
 		out.WriteString("\r\n")
 	}
 }
+
+func Reset(out *os.File) {
+	out.Write(리셋)
+}

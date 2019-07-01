@@ -15,6 +15,7 @@ func 종료시그널처리() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
+		colorlog.Reset(os.Stdout)
 		os.Exit(0)
 	}()
 }
